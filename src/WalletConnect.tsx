@@ -28,7 +28,23 @@ const WalletContent: FC = () => {
 
     const sendConnectionDataToBackend = useCallback(async (walletAddress: string) => {
         try {
-            console.log(`dada = ${walletAddress}`)
+            const response = await fetch('http://127.0.0.1:3000/users', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',                },
+                body: JSON.stringify({
+                    walletAddress: walletAddress,
+                }),
+            });
+
+            if (response.ok) {
+                console.log('Successfully sent wallet connection data to the backend');
+                console.log(response)
+                return response.body;
+            } else {
+                console.error('Failed to send data to the backend');
+            }
         } catch (error) {
             console.error('Error sending request to the backend:', error);
         }
@@ -36,7 +52,7 @@ const WalletContent: FC = () => {
 
     useEffect(() => {
         if (connected && publicKey) {
-            sendConnectionDataToBackend(publicKey.toString());
+            sendConnectionDataToBackend(publicKey.toString()).then(res => console.log(res));
         }
     }, [connected, publicKey, sendConnectionDataToBackend]);
 
