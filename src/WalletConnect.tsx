@@ -56,13 +56,28 @@ const WalletContent: FC = () => {
         }
     }, [connected, publicKey, sendConnectionDataToBackend]);
 
-    return (
-        <div className="wallet-connect-container">
-            <h2>Sign up</h2>
-            <p>Connect a wallet</p>
-            <WalletMultiButton/>
-        </div>
-    );
+    if (connected) {
+        return (
+            <div className="add-info-container">
+                <div className="user-image">
+                    <img></img>
+                </div>
+
+                <div className="user-info">
+                    <h3>First Name</h3>
+                    <h3>Last Name</h3>
+                </div>
+            </div>
+        )
+    } else {
+        return (
+            <div className="wallet-connect-container">
+                <h2>Sign up</h2>
+                <p>Connect a wallet</p>
+                <WalletMultiButton />
+            </div>
+        );
+    }
 };
 
 export default WalletConnect;

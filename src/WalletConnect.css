@@ -3,25 +3,31 @@
     flex-direction: column;
     align-items: center;
     background-color: #f8f8f8;
-    border-radius: 15px;
+    border-radius: 40px;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     margin: auto;
     position: absolute;
-    width: 300px;
+    width: 330px;
     height: 300px;
+    color: #030214;
 }
 
 h2 {
-    font-size: 24px;
+    font-size: 28px;
     margin-bottom: 10px;
 }
 
+h3 {
+    font-size: 20px;
+}
+
 p {
-    font-size: 16px;
+    font-size: 20px;
     margin-bottom: 20px;
+    margin-top: 0;
 }
 
 .wallet-buttons {
@@ -61,4 +67,54 @@ p {
 
 .solflare {
     background-color: #eb634b;
+}
+
+.next-button {
+    margin-top: 30px;
+    font-size: 18px;
+    background-color: #47279B;
+}
+
+.next-button:hover {
+    background-color: #1a1f2e;
+}
+
+.add-info-container {
+    width: 390px;
+    height: 258px;
+    background-color: #f8f8f8;
+    margin: auto;
+    position: absolute;
+    top: 80px;
+    right: 0;
+    left: 0;
+    border-radius: 32px;
+    padding: 20px;
+    display: flex;
+    gap: 10px;
+    color: #030214;
+}
+
+.user-image {
+    border-radius: 32px;
+    border: 1;
+    border-width: 1px;
+    border-color: #6E6E6E;
+    width: 193px;
+    height: 218px;
+    background-color: black;
+}
+
+.user-info {
+    max-width: 100%;
+    height: 100%;
+    padding: 10px 4px;
+}
+
+.user-info h3 {
+    margin: 0px;
+}
+
+.user-info-socials {
+    text-decoration: underline;
 }
