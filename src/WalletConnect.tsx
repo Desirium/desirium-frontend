@@ -69,13 +69,20 @@ const WalletContent: FC = () => {
                         <img src="/images/placeholder-person.svg"></img>
                     </div>
 
+
+
                     <div className="user-info">
-                        <div>
-                            <h3>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                            <h3 style={{ marginRight: "5px" }}>
                                 {userData?.name && userData?.surname
                                     ? `${userData.name} ${userData.surname}`
                                     : "First | Last name"}
                             </h3>
+                            <div>
+                                <a href="#">
+                                    <img src="/images/update.svg"></img>
+                                </a>
+                            </div>
                         </div>
 
                         <div className="user-info-socials">
