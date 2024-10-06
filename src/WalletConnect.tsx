@@ -73,7 +73,7 @@ const WalletContent: FC = () => {
                         <div>
                             <h3>
                                 {userData?.name && userData?.surname
-                                    ? `${userData.name} | ${userData.surname}`
+                                    ? `${userData.name} ${userData.surname}`
                                     : "First | Last name"}
                             </h3>
                         </div>
