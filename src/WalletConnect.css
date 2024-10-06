@@ -81,34 +81,40 @@ p {
 
 .add-info-container {
     width: 390px;
-    height: 258px;
     background-color: #f8f8f8;
     margin: auto;
     position: absolute;
     top: 80px;
     right: 0;
     left: 0;
-    border-radius: 32px;
+    border-radius: 16px;
     padding: 20px;
-    display: flex;
-    gap: 10px;
     color: #030214;
 }
 
+.user-info-container {
+    display: flex;
+    gap: 10px;
+}
+
 .user-image {
-    border-radius: 32px;
+    border-radius: 8px;
     border: 1;
     border-width: 1px;
     border-color: #6E6E6E;
     width: 193px;
     height: 218px;
     background-color: black;
+    overflow: hidden;
 }
 
 .user-info {
     max-width: 100%;
     height: 100%;
     padding: 10px 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .user-info h3 {
@@ -116,5 +122,62 @@ p {
 }
 
 .user-info-socials {
-    text-decoration: underline;
+    text-decoration: none;
+    color: #222121;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.socials {
+    display: flex;
+    gap: 15px;
+    margin: 0;
+}
+
+.socials p {
+    margin: 0;
+    font-size: 16px;
+    color: #222121;
+}
+
+.socials img {
+    height: 28px;
+    width: 28px;
+}
+
+.user-description {
+    padding: 20px 10px;
+}
+
+.user-description p {
+    font-family: "Montserrat Alternates", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 25px;
+}
+
+.divider-small {
+    border-top: 2px solid #8170DB;
+    width: 200px;
+    margin: 0 auto;
+}
+
+.divider-large {
+    border-top: 2px solid #8170DB;
+    width: 350px;
+}
+
+.whishlist-title {
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+    line-height: 25px;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+}
+
+.whishlist-title h2 {
+    margin: 0;
 }

@@ -32,7 +32,8 @@ const WalletContent: FC = () => {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json',                },
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({
                     walletAddress: walletAddress,
                 }),
@@ -56,16 +57,63 @@ const WalletContent: FC = () => {
         }
     }, [connected, publicKey, sendConnectionDataToBackend]);
 
+    const userData = useMemo(() => {}, []);
+
     if (connected) {
         return (
             <div className="add-info-container">
-                <div className="user-image">
-                    <img></img>
+                <div className="user-info-container">
+                    <div className="user-image">
+                        <img src="/images/placeholder-person.svg"></img>
+                    </div>
+
+                    <div className="user-info">
+                        <div>
+                            <h3>First | Last name</h3>
+                        </div>
+
+                        <div className="user-info-socials">
+                            <a className="socials" href="#">
+                                <img src="/images/socials/instagram.svg" alt="instagram"></img>
+                                <p>Instagram</p>
+                            </a>
+
+                            <a className="socials" href="#">
+                                <img src="/images/socials/tiktok.svg" alt="tiktok"></img>
+                                <p>TikTok</p>
+                            </a>
+
+                            <a className="socials" href="#">
+                                <img src="/images/socials/twitter.svg" alt="twitter"></img>
+                                <p>Twitter</p>
+                            </a>
+
+                            <a className="socials" href="#">
+                                <img src="/images/socials/linkedin.svg" alt="linkedin"></img>
+                                <p>Linkedin</p>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
-                <div className="user-info">
-                    <h3>First Name</h3>
-                    <h3>Last Name</h3>
+                <div className="user-description">
+                    <p>
+                        Hi, I'm Kate, I was born in a small picturesque town surrounded by beautiful nature.
+                        Since childhood, I have been fascinated by travelling and dreaming of exploring the most remote corners of the world.
+                        My imagination is always floating among new places and cultures, and the dream of travelling to the Arctic is especially important to me.
+                        I am fascinated by the Arctic landscapes, the northern lights and the wild expanses of snow and ice,
+                        and I want to see it all with my own eyes one day.
+                    </p>
+
+                    <hr className="divider-small"></hr>
+                </div>
+
+                <div>
+                    <div className="whishlist-title">
+                        <h2>My wishlist</h2>
+                    </div>
+
+                    <hr className="divider-large"></hr>
                 </div>
             </div>
         )
