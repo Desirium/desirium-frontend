@@ -71,26 +71,30 @@ const WalletContent: FC = () => {
 
                     <div className="user-info">
                         <div>
-                            <h3>First | Last name</h3>
+                            <h3>
+                                {userData?.name && userData?.surname
+                                    ? `${userData.name} | ${userData.surname}`
+                                    : "First | Last name"}
+                            </h3>
                         </div>
 
                         <div className="user-info-socials">
-                            <a className="socials" href="#">
+                            <a className="socials" href={userData?.instagram ? userData.instagram : "#"} target="_blank">
                                 <img src="/images/socials/instagram.svg" alt="instagram"></img>
                                 <p>Instagram</p>
                             </a>
 
-                            <a className="socials" href="#">
+                            <a className="socials" href={userData?.tiktok ? userData.tiktok : "#"} target="_blank">
                                 <img src="/images/socials/tiktok.svg" alt="tiktok"></img>
                                 <p>TikTok</p>
                             </a>
 
-                            <a className="socials" href="#">
+                            <a className="socials" href={userData?.twitter ? userData.twitter : "#"} target="_blank">
                                 <img src="/images/socials/twitter.svg" alt="twitter"></img>
                                 <p>Twitter</p>
                             </a>
 
-                            <a className="socials" href="#">
+                            <a className="socials" href={userData?.linkedin ? userData.linkedin : "#"} target="_blank">
                                 <img src="/images/socials/linkedin.svg" alt="linkedin"></img>
                                 <p>Linkedin</p>
                             </a>
@@ -99,13 +103,7 @@ const WalletContent: FC = () => {
                 </div>
 
                 <div className="user-description">
-                    <p>
-                        Hi, I'm Kate, I was born in a small picturesque town surrounded by beautiful nature.
-                        Since childhood, I have been fascinated by travelling and dreaming of exploring the most remote corners of the world.
-                        My imagination is always floating among new places and cultures, and the dream of travelling to the Arctic is especially important to me.
-                        I am fascinated by the Arctic landscapes, the northern lights and the wild expanses of snow and ice,
-                        and I want to see it all with my own eyes one day.
-                    </p>
+                    {userData ? (<p>{userData.description}</p>) : (<p></p>)}
 
                     <hr className="divider-small"></hr>
                 </div>
