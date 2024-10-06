@@ -1,4 +1,4 @@
-import {FC, useEffect, useMemo, useCallback} from 'react';
+import {FC, useEffect, useMemo, useCallback, useState} from 'react';
 import {ConnectionProvider, WalletProvider, useWallet} from '@solana/wallet-adapter-react';
 import {WalletAdapterNetwork} from '@solana/wallet-adapter-base';
 import {SolflareWalletAdapter} from '@solana/wallet-adapter-wallets';
@@ -25,6 +25,7 @@ const WalletConnect: FC = () => {
 
 const WalletContent: FC = () => {
     const {publicKey, connected} = useWallet();
+    const [userData, setUserData] = useState();
 
     const sendConnectionDataToBackend = useCallback(async (walletAddress: string) => {
         try {
@@ -41,8 +42,9 @@ const WalletContent: FC = () => {
 
             if (response.ok) {
                 console.log('Successfully sent wallet connection data to the backend');
-                console.log(response)
-                return response.body;
+                const responseBody = await response.json();
+                setUserData(responseBody);
+                return responseBody;
             } else {
                 console.error('Failed to send data to the backend');
             }
@@ -53,13 +55,13 @@ const WalletContent: FC = () => {
 
     useEffect(() => {
         if (connected && publicKey) {
-            sendConnectionDataToBackend(publicKey.toString()).then(res => console.log(res));
+            sendConnectionDataToBackend(publicKey.toString()).then(res => res);
         }
     }, [connected, publicKey, sendConnectionDataToBackend]);
 
-    const userData = useMemo(() => {}, []);
 
     if (connected) {
+        console.log(userData);
         return (
             <div className="add-info-container">
                 <div className="user-info-container">
