@@ -27,6 +27,29 @@ const WalletConnect: FC = () => {
 const WalletContent: FC = () => {
     const {publicKey, connected} = useWallet();
     const [userData, setUserData] = useState();
+    const [wishList, setWishList] = useState();
+
+    const fetchAllWishesForUserByUserId = useCallback(async (id: number) => {
+        try {
+            const response = await fetch(`http://127.0.0.1:3000/wishlist/user/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (response.ok) {
+                console.log('Successfully fetched wishlists from backend');
+                const responseBody = await response.json();
+                setWishList(responseBody);
+                return responseBody;
+            } else {
+                console.error('Failed to send data to the backend');
+            }
+        } catch (error) {
+            console.error('Error sending request to the backend:', error);
+        }
+    }, []);
 
     const sendConnectionDataToBackend = useCallback(async (walletAddress: string) => {
         try {
@@ -45,6 +68,8 @@ const WalletContent: FC = () => {
                 console.log('Successfully sent wallet connection data to the backend');
                 const responseBody = await response.json();
                 setUserData(responseBody);
+                console.log(responseBody.id)
+                await fetchAllWishesForUserByUserId(responseBody.id);
                 return responseBody;
             } else {
                 console.error('Failed to send data to the backend');
