@@ -1,19 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import './UpdateProfile.css';
 import {useLocation} from "react-router";
+import { userDataType } from "./types";
 
 
 const UpdateProfile = () => {
     const location = useLocation();
-    const [userData, setUserData] = useState(location.state?.userData || {});
+    const [userData, setUserData] = useState<userDataType | Record<string, any>>(location.state?.userData || {});
 
-    const [newUserData, setNewUserData] = useState({
-        instagram: userData?.instagram || "",
-        tiktok: userData?.tiktok || "",
-        twitter: userData?.twitter || "",
-        linkedin: userData?.linkedin || "",
-        description: userData?.description || ""
-    });
+    const [newUserData, setNewUserData] = useState<userDataType | Record<string, any>>({});
 
     const handleSave = async () => {
         try {
@@ -56,8 +51,8 @@ const UpdateProfile = () => {
     // Handler to update state when input changes
     const handleInputChange = (e) => {
         const {name, value} = e.target;
-        console.log(name)
-        console.log(value)
+        console.log(name);
+        console.log(value);
         setNewUserData(prevState => ({
             ...prevState,
             [name]: value
@@ -65,89 +60,104 @@ const UpdateProfile = () => {
     };
 
     return (
-        <div className="add-info-container">
-            <div className="user-info-container">
-                <div className="user-image">
-                    <img src="/images/placeholder-person.svg"></img>
-                </div>
-
-
-                <div className="user-info">
-                    <div style={{display: "flex", alignItems: "center"}}>
-                        <div>
-                            <input
-                                type="text"
-                                name="name"
-                                value={newUserData.name}
-                                onChange={handleInputChange}
-                            />
-                            <input
-                                type="text"
-                                name="surname"
-                                value={newUserData.surname}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div>
-                            <a href="/">
-                                <img src="/images/discard.svg"></img>
-                            </a>
-                        </div>
+        <div className="screen-flex-position">
+            <div className="base-container base-user-container">
+                <div className="user-info-container">
+                    <div className="user-image">
+                        <img src="/images/placeholder-person.svg"></img>
                     </div>
 
-                    <div className="user-info-socials">
-                        <div className="socials">
-                            <img src="/images/socials/instagram.svg" alt="instagram"/>
-                            <input
-                                type="text"
-                                name="instagram"
-                                value={newUserData.instagram}
-                                onChange={handleInputChange}
-                            />
+
+                    <div className="user-info">
+                        <div style={{display: "flex", alignItems: "center"}}>
+                            <div className="user-info-base-info">
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={newUserData.name}
+                                    onChange={handleInputChange}
+                                    placeholder="First name"
+                                    autoComplete="off"
+                                />
+                                <input
+                                    type="text"
+                                    name="surname"
+                                    value={newUserData.surname}
+                                    onChange={handleInputChange}
+                                    placeholder="Last name"
+                                    autoComplete="off"
+                                />
+                            </div>
+                            <div>
+                                <a href="/">
+                                    <img src="/images/discard.svg"></img>
+                                </a>
+                            </div>
                         </div>
 
-                        <div className="socials">
-                            <img src="/images/socials/tiktok.svg" alt="tiktok"/>
-                            <input
-                                type="text"
-                                name="tiktok"
-                                value={newUserData.tiktok}
-                                onChange={handleInputChange}
-                            />
-                        </div>
+                        <div className="user-info-socials">
+                            <div className="socials">
+                                <img src="/images/socials/instagram.svg" alt="instagram"/>
+                                <input
+                                    type="text"
+                                    name="instagram"
+                                    value={newUserData.instagram}
+                                    onChange={handleInputChange}
+                                    placeholder="enter the link"
+                                    autoComplete="off"
+                                />
+                            </div>
 
-                        <div className="socials">
-                            <img src="/images/socials/twitter.svg" alt="twitter"/>
-                            <input
-                                type="text"
-                                name="twitter"
-                                value={newUserData.twitter}
-                                onChange={handleInputChange}
-                            />
-                        </div>
+                            <div className="socials">
+                                <img src="/images/socials/tiktok.svg" alt="tiktok"/>
+                                <input
+                                    type="text"
+                                    name="tiktok"
+                                    value={newUserData.tiktok}
+                                    onChange={handleInputChange}
+                                    placeholder="enter the link"
+                                    autoComplete="off"
+                                />
+                            </div>
 
-                        <div className="socials">
-                            <img src="/images/socials/linkedin.svg" alt="linkedin"/>
-                            <input
-                                type="text"
-                                name="linkedin"
-                                value={newUserData.linkedin}
-                                onChange={handleInputChange}
-                            />
+                            <div className="socials">
+                                <img src="/images/socials/twitter.svg" alt="twitter"/>
+                                <input
+                                    type="text"
+                                    name="twitter"
+                                    value={newUserData.twitter}
+                                    onChange={handleInputChange}
+                                    placeholder="enter the link"
+                                    autoComplete="off"
+                                />
+                            </div>
+
+                            <div className="socials">
+                                <img src="/images/socials/linkedin.svg" alt="linkedin"/>
+                                <input
+                                    type="text"
+                                    name="linkedin"
+                                    value={newUserData.linkedin}
+                                    onChange={handleInputChange}
+                                    placeholder="enter the link"
+                                    autoComplete="off"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="user-description">
-                <input
-                    type="text"
+
+            <div className="base-container description-container">
+                <textarea
                     name="description"
                     value={newUserData.description}
                     onChange={handleInputChange}
-
+                    placeholder="Tell us about yourself, your dreams and hobbies..."
+                    autoComplete="off"       
                 />
-
             </div>
+
             <button onClick={handleSave} className="saveButton">
                 SAVE
             </button>

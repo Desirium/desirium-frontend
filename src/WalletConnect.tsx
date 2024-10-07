@@ -7,6 +7,7 @@ import {clusterApiUrl} from '@solana/web3.js';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import './WalletConnect.css';
 import {Link} from "react-router-dom";
+import { userDataType } from "./types";
 
 const WalletConnect: FC = () => {
     const network = WalletAdapterNetwork.Devnet;
@@ -26,7 +27,7 @@ const WalletConnect: FC = () => {
 
 const WalletContent: FC = () => {
     const {publicKey, connected} = useWallet();
-    const [userData, setUserData] = useState();
+    const [userData, setUserData] = useState<userDataType>();
     const [wishList, setWishList] = useState();
 
     const fetchAllWishesForUserByUserId = useCallback(async (id: number) => {
