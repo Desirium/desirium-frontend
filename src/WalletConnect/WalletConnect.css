@@ -30,17 +30,6 @@ p {
     margin-top: 0;
 }
 
-input, textarea {
-    background-color: transparent;
-    border: 0;
-    color: #565656;
-}
-
-textarea {
-    resize: none;
-    overflow: auto;
-}
-
 .wallet-buttons {
     display: flex;
     flex-direction: column;
@@ -138,31 +127,15 @@ textarea {
     max-width: 50%;
 }
 
-.user-info input {
-    font-size: 20px;
-    padding: 1px 1px;
-    font-weight: 500;
-}
-
-.user-info input:focus-visible {
-    outline: none;
-}
-
-.user-info input::placeholder {
-    color: #565656;
-    opacity: 80%;
+.user-info h3 {
+    margin: 0px;
 }
 
 .user-info-base-info {
     display: flex;
     gap: 10px;
     flex-direction: column;
-    width: 140px;
-}
-
-.user-info-base-info input {
-    line-height: 24px;
-    letter-spacing: 0.07em;
+    align-items: center;
 }
 
 .user-info-socials {
@@ -171,24 +144,12 @@ textarea {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    max-width: 150px;
 }
-
-.user-info-socials input {
-    width: 100%;
-    font-size: 16px;
-    text-decoration-line: underline;
-    line-height: 16.41px;
-    letter-spacing: 0.03em;
-    padding: 5px 1px;
-}
-
 
 .socials {
     display: flex;
     gap: 15px;
     margin: 0;
-    max-width: 150px;
 }
 
 .socials p {
@@ -202,6 +163,18 @@ textarea {
     width: 28px;
 }
 
+.user-description {
+    padding: 20px 10px;
+}
+
+.user-description p {
+    font-family: "Montserrat Alternates", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 25px;
+}
+
 .divider-small {
     border-top: 2px solid #8170DB;
     width: 200px;
@@ -211,30 +184,6 @@ textarea {
 .divider-large {
     border-top: 2px solid #8170DB;
     width: 350px;
-}
-
-.description-container {
-    margin-top: 30px;
-}
-
-.description-container textarea {
-    font-family: 'Montserrat Alternates', sans-serif;
-    font-size: 16px;
-    line-height: 16.41px;
-    letter-spacing: 0.03em;
-    padding: 5px;
-    box-sizing: border-box;
-    height: 100px;
-}
-
-.description-container textarea:focus-visible {
-    outline: none;
-}
-
-.description-container textarea::placeholder {
-    color: #565656;
-    opacity: 80%;
-    letter-spacing: 0.05em;
 }
 
 .whishlist-title {
@@ -248,22 +197,4 @@ textarea {
 
 .whishlist-title h2 {
     margin: 0;
-}
-
-.saveButton {
-    margin-top: 30px;
-    padding: 20px;
-    width: 430px;
-    color: white;
-    font-size: 20px;
-    font-weight: 600;
-    font-style: normal;
-    line-height: 25px;
-    letter-spacing: 0.08em;
-    border-radius: 16px;
-    background-color: #47279B;
-}
-
-.saveButton button {
-    font-family: "Montserrat Alternates", sans-serif;
 }

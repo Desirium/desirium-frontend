@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './UpdateProfile.css';
 import {useLocation} from "react-router";
-import { userDataType } from "./types";
+import { userDataType } from "../types";
 
 
 const UpdateProfile = () => {
@@ -49,7 +49,7 @@ const UpdateProfile = () => {
     }, [userData]);
 
     // Handler to update state when input changes
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: any) => {  // TODO: Fix this type
         const {name, value} = e.target;
         console.log(name);
         console.log(value);

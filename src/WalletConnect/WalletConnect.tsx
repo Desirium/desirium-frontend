@@ -7,7 +7,7 @@ import {clusterApiUrl} from '@solana/web3.js';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import './WalletConnect.css';
 import {Link} from "react-router-dom";
-import { userDataType } from "./types";
+import { userDataType } from "../types";
 
 const WalletConnect: FC = () => {
     const network = WalletAdapterNetwork.Devnet;
@@ -90,67 +90,71 @@ const WalletContent: FC = () => {
     if (connected) {
         console.log(userData);
         return (
-            <div className="add-info-container">
-                <div className="user-info-container">
-                    <div className="user-image">
-                        <img src="/images/placeholder-person.svg"></img>
-                    </div>
+            <div className="screen-flex-position">
+                <div className="base-container base-user-container">
+                    <div className="user-info-container">
+                        <div className="user-image">
+                            <img src="/images/placeholder-person.svg"></img>
+                        </div>
 
 
 
-                    <div className="user-info">
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                            <h3 style={{ marginRight: "5px" }}>
-                                {userData?.name && userData?.surname
-                                    ? `${userData.name} ${userData.surname}`
-                                    : "First | Last name"}
-                            </h3>
-                            <div>
-                                <Link to={{
-                                    pathname: "/update-profile"
-                                }}
-                                state={{userData: userData}}>
-                                    <img src="/images/update.svg"></img>
-                                </Link>
+                        <div className="user-info">
+                            <div style={{ display: "flex", alignItems: "center" }}>
+
+                                    <h3 style={{ marginRight: "5px" }}>
+                                        {userData?.name && userData?.surname
+                                            ? `${userData.name} ${userData.surname}`
+                                            : "First | Last name"}
+                                    </h3>
+
+                                <div>
+                                    <Link to={{
+                                        pathname: "/update-profile"
+                                    }}
+                                    state={{userData: userData}}>
+                                        <img src="/images/update.svg"></img>
+                                    </Link>
+                                </div>
+                            </div>
+
+                            <div className="user-info-socials">
+                                <a className="socials" href={userData?.instagram ? userData.instagram : "#"} target="_blank">
+                                    <img src="/images/socials/instagram.svg" alt="instagram"></img>
+                                    <p>Instagram</p>
+                                </a>
+
+                                <a className="socials" href={userData?.tiktok ? userData.tiktok : "#"} target="_blank">
+                                    <img src="/images/socials/tiktok.svg" alt="tiktok"></img>
+                                    <p>TikTok</p>
+                                </a>
+
+                                <a className="socials" href={userData?.twitter ? userData.twitter : "#"} target="_blank">
+                                    <img src="/images/socials/twitter.svg" alt="twitter"></img>
+                                    <p>Twitter</p>
+                                </a>
+
+                                <a className="socials" href={userData?.linkedin ? userData.linkedin : "#"} target="_blank">
+                                    <img src="/images/socials/linkedin.svg" alt="linkedin"></img>
+                                    <p>Linkedin</p>
+                                </a>
                             </div>
                         </div>
+                    </div>
 
-                        <div className="user-info-socials">
-                            <a className="socials" href={userData?.instagram ? userData.instagram : "#"} target="_blank">
-                                <img src="/images/socials/instagram.svg" alt="instagram"></img>
-                                <p>Instagram</p>
-                            </a>
+                    <div className="user-description">
+                        {userData ? (<p>{userData.description}</p>) : (<p></p>)}
 
-                            <a className="socials" href={userData?.tiktok ? userData.tiktok : "#"} target="_blank">
-                                <img src="/images/socials/tiktok.svg" alt="tiktok"></img>
-                                <p>TikTok</p>
-                            </a>
+                        <hr className="divider-small"></hr>
+                    </div>
 
-                            <a className="socials" href={userData?.twitter ? userData.twitter : "#"} target="_blank">
-                                <img src="/images/socials/twitter.svg" alt="twitter"></img>
-                                <p>Twitter</p>
-                            </a>
-
-                            <a className="socials" href={userData?.linkedin ? userData.linkedin : "#"} target="_blank">
-                                <img src="/images/socials/linkedin.svg" alt="linkedin"></img>
-                                <p>Linkedin</p>
-                            </a>
+                    <div>
+                        <div className="whishlist-title">
+                            <h2>My wishlist</h2>
                         </div>
+
+                        <hr className="divider-large"></hr>
                     </div>
-                </div>
-
-                <div className="user-description">
-                    {userData ? (<p>{userData.description}</p>) : (<p></p>)}
-
-                    <hr className="divider-small"></hr>
-                </div>
-
-                <div>
-                    <div className="whishlist-title">
-                        <h2>My wishlist</h2>
-                    </div>
-
-                    <hr className="divider-large"></hr>
                 </div>
             </div>
         )
