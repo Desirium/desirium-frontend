@@ -6,6 +6,7 @@ import {WalletModalProvider, WalletMultiButton} from '@solana/wallet-adapter-rea
 import {clusterApiUrl} from '@solana/web3.js';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import './WalletConnect.css';
+import {Link} from "react-router-dom";
 
 const WalletConnect: FC = () => {
     const network = WalletAdapterNetwork.Devnet;
@@ -79,9 +80,12 @@ const WalletContent: FC = () => {
                                     : "First | Last name"}
                             </h3>
                             <div>
-                                <a href="#">
+                                <Link to={{
+                                    pathname: "/update-profile"
+                                }}
+                                state={{userData: userData}}>
                                     <img src="/images/update.svg"></img>
-                                </a>
+                                </Link>
                             </div>
                         </div>
 

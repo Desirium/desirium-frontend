@@ -182,3 +182,17 @@ p {
 .whishlist-title h2 {
     margin: 0;
 }
+
+.saveButton {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.saveButton button {
+    font-family: "Montserrat Alternates", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 25px;
+}
