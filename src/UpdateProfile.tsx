@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './UpdateProfile.css';
-import { useLocation } from "react-router";
-
+import {useLocation} from "react-router";
 
 
 const UpdateProfile = () => {
@@ -16,18 +15,29 @@ const UpdateProfile = () => {
         description: userData?.description || ""
     });
 
-    const handleSave = () => {
-        // Save the updated profile data (API call or local storage logic here)
-        console.log({
-            name,
-            surname,
-            instagram,
-            tiktok,
-            twitter,
-            linkedin,
-            bio
-        });
-        alert('Profile updated!');
+    const handleSave = async () => {
+        try {
+            const response = await fetch(`http://127.0.0.1:3000/users/${userData.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newUserData)
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log('User updated successfully:', result);
+
+                window.location.href = "/";
+            } else {
+                console.error('Failed to update user:', response.status);
+                alert('Failed to update user. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while updating the profile.');
+        }
     };
 
     useEffect(() => {
@@ -45,7 +55,7 @@ const UpdateProfile = () => {
 
     // Handler to update state when input changes
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         console.log(name)
         console.log(value)
         setNewUserData(prevState => ({
