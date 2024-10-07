@@ -158,6 +158,7 @@ textarea {
     gap: 10px;
     flex-direction: column;
     width: 140px;
+    padding-left: 30px;
 }
 
 .user-info-base-info input {
