@@ -66,3 +66,48 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.divider-small {
+  border-top: 2px solid #8170DB;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.divider-large {
+  border-top: 2px solid #8170DB;
+  width: 350px;
+}
+
+.whishlist-title {
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  line-height: 25px;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+
+.whishlist-title h2 {
+  margin: 0;
+}
+
+.screen-flex-position {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  width: 100vw;
+}
+
+.base-container {
+  width: 390px;
+  background-color: #f8f8f8;
+  border-radius: 32px;
+  padding: 20px;
+  color: #030214;
+}
+
+.whishlist-container {
+  margin-top: 30px;
+}

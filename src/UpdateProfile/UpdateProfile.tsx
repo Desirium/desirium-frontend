@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import './UpdateProfile.css';
 import {useLocation} from "react-router";
 import { userDataType } from "../types";
@@ -68,9 +68,9 @@ const UpdateProfile = () => {
                     </div>
 
 
-                    <div className="user-info">
+                    <div className="user-info-edit">
                         <div style={{display: "flex", alignItems: "center"}}>
-                            <div className="user-info-base-info">
+                            <div className="user-info-base-edit">
                                 <input
                                     type="text"
                                     name="name"

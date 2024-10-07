@@ -101,13 +101,13 @@ const WalletContent: FC = () => {
 
                         <div className="user-info">
                             <div style={{ display: "flex", alignItems: "center" }}>
-
+                                <div className="user-info-base-info">
                                     <h3 style={{ marginRight: "5px" }}>
                                         {userData?.name && userData?.surname
                                             ? `${userData.name} ${userData.surname}`
                                             : "First | Last name"}
                                     </h3>
-
+                                </div>
                                 <div>
                                     <Link to={{
                                         pathname: "/update-profile"
@@ -141,19 +141,23 @@ const WalletContent: FC = () => {
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div className="user-description">
-                        {userData ? (<p>{userData.description}</p>) : (<p></p>)}
+                <div className="base-container description-container">
+                    {userData ? (<p>{userData.description}</p>) : (<p>{"Empty description."}</p>)}
+                </div>
 
-                        <hr className="divider-small"></hr>
+                <div className="base-container whishlist-container">
+                    <hr className="divider-small" style={{ marginBottom: "20px" }}></hr>
+
+                    <div className="whishlist-title">
+                        <h2>My wishlist</h2>
                     </div>
 
+                    <hr className="divider-large"></hr>
+                    
                     <div>
-                        <div className="whishlist-title">
-                            <h2>My wishlist</h2>
-                        </div>
-
-                        <hr className="divider-large"></hr>
+                        <img src="/images/wishlist-placeholder.svg" />
                     </div>
                 </div>
             </div>
