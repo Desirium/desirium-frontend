@@ -3,7 +3,7 @@ import {ConnectionProvider, WalletProvider, useWallet} from '@solana/wallet-adap
 import {WalletAdapterNetwork} from '@solana/wallet-adapter-base';
 import {SolflareWalletAdapter} from '@solana/wallet-adapter-wallets';
 import {WalletModalProvider, WalletMultiButton} from '@solana/wallet-adapter-react-ui';
-import {clusterApiUrl} from '@solana/web3.js';
+import {clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction} from '@solana/web3.js';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import './WalletConnect.css';
 import {Link} from "react-router-dom";
@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import {Input, TextField} from "@mui/material";
+import {TextField} from "@mui/material";
 
 
 const WalletConnect: FC = () => {
@@ -32,9 +32,10 @@ const WalletConnect: FC = () => {
 };
 
 const WalletContent: FC = () => {
-    const {publicKey, connected} = useWallet();
+    const {publicKey, connected, sendTransaction} = useWallet();
     const [userData, setUserData] = useState<userDataType>();
     const [wishList, setWishList] = useState();
+    const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
 
     const fetchAllWishesForUserByUserId = useCallback(async (id: number) => {
         try {
@@ -93,8 +94,38 @@ const WalletContent: FC = () => {
     }, [connected, publicKey, sendConnectionDataToBackend]);
 
     const [open, setOpen] = useState(false);
+
+    const [giftAmount, setGiftAmount] = useState('');
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const wishListWallet = "D9Pn2KWJoheQ78K5tXZZ1TgQHTWYkEizdUkp4kDAQmN9";
+
+    const handleGift = async () => {
+        if (!publicKey) {
+            alert("Please connect your wallet.");
+            return;
+        }
+        const number = parseFloat(giftAmount);
+
+        if (isNaN(number)) {
+            alert("The input cannot be converted to a number.");
+            return;
+        }
+
+        const transaction = new Transaction().add(
+            SystemProgram.transfer({
+                fromPubkey: publicKey,
+                toPubkey: new PublicKey(wishListWallet),
+                lamports: number * LAMPORTS_PER_SOL,
+            })
+        );
+
+        const signature = await sendTransaction(transaction, connection);
+
+        await connection.confirmTransaction(signature, 'confirmed');
+
+        console.log(wishListWallet)
+    }
 
     const style = {
         position: 'absolute',
@@ -193,8 +224,13 @@ const WalletContent: FC = () => {
                                 <Typography id="modal-modal-title" variant="h6" component="h2">
                                     Enter the amount:
                                 </Typography>
-                                <TextField inputMode="numeric" label="amount"/>
-                                <Button onClick={handleOpen}>Give</Button>
+                                <TextField
+                                    inputMode="numeric"
+                                    label="amount"
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                        setGiftAmount(event.target.value);
+                                    }}/>
+                                <Button onClick={handleGift}>Give</Button>
                             </Box>
                         </Modal>
                     </div>
