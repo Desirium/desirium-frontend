@@ -10,3 +10,13 @@ export type userDataType = {
     description?: string,
     image: string,
 };
+
+export type wishListDataType = {
+    id: number,
+    user_id: number,
+    wallet_address: string,
+    isprivate: boolean,
+    image: string,
+    description: string,
+    name: string,
+};

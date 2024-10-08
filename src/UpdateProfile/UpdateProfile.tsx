@@ -1,12 +1,13 @@
 import {ChangeEvent, useEffect, useState} from 'react';
 import './UpdateProfile.css';
 import {useLocation} from "react-router";
-import { userDataType } from "../types";
+import { userDataType, wishListDataType } from "../types";
 import Button from "@mui/material/Button";
 
 const UpdateProfile = () => {
     const location = useLocation();
     const [userData, setUserData] = useState<userDataType | Record<string, any>>(location.state?.userData || {});
+    const [whishlists, setWhishlists] = useState<Array<wishListDataType>>([]);
 
     const [newUserData, setNewUserData] = useState<userDataType | Record<string, any>>({});
 
@@ -34,6 +35,10 @@ const UpdateProfile = () => {
             alert('An error occurred while updating the profile.');
         }
     };
+
+    const handleAddWish = async () => {
+        // TODO: Add wishlist logic
+    }
 
     useEffect(() => {
         setNewUserData({
@@ -211,6 +216,20 @@ const UpdateProfile = () => {
                     autoComplete="off"       
                 />
             </div>
+
+            <button onClick={handleAddWish} className="wishlistButton">
+                ADD WISH
+            </button>
+
+            {
+                whishlists.map(element => (
+                    <>
+                        <div className="base-container whishlist-container">
+                            TODO THIS CODE
+                        </div>
+                    </>
+                ))
+            }
 
             <button onClick={handleSave} className="saveButton">
                 SAVE
