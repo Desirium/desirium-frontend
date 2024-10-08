@@ -8,6 +8,12 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 import './WalletConnect.css';
 import {Link} from "react-router-dom";
 import { userDataType } from "../types";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import {Input, TextField} from "@mui/material";
+
 
 const WalletConnect: FC = () => {
     const network = WalletAdapterNetwork.Devnet;
@@ -86,6 +92,21 @@ const WalletContent: FC = () => {
         }
     }, [connected, publicKey, sendConnectionDataToBackend]);
 
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
 
     if (connected) {
         console.log(userData);
@@ -148,7 +169,7 @@ const WalletContent: FC = () => {
                 </div>
 
                 <div className="base-container whishlist-container">
-                    <hr className="divider-small" style={{ marginBottom: "20px" }}></hr>
+                    <hr className="divider-small" style={{marginBottom: "20px"}}></hr>
 
                     <div className="whishlist-title">
                         <h2>My wishlist</h2>
@@ -159,6 +180,24 @@ const WalletContent: FC = () => {
                     <div>
                         <img src="/images/wishlist-placeholder.svg" />
                     </div>
+
+                    <div>
+                        <Button onClick={handleOpen}>Make a wish</Button>
+                        <Modal
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={style}>
+                                <Typography id="modal-modal-title" variant="h6" component="h2">
+                                    Enter the amount:
+                                </Typography>
+                                <TextField inputMode="numeric" label="amount"/>
+                                <Button onClick={handleOpen}>Give</Button>
+                            </Box>
+                        </Modal>
+                    </div>
                 </div>
             </div>
         )
@@ -167,7 +206,7 @@ const WalletContent: FC = () => {
             <div className="wallet-connect-container">
                 <h2>Sign up</h2>
                 <p>Connect a wallet</p>
-                <WalletMultiButton />
+                <WalletMultiButton/>
             </div>
         );
     }
