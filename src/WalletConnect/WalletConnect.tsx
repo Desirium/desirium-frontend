@@ -7,12 +7,12 @@ import {clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, T
 import '@solana/wallet-adapter-react-ui/styles.css';
 import './WalletConnect.css';
 import {Link} from "react-router-dom";
-import { userDataType } from "../types";
+import {userDataType} from "../types";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import {InputLabel, TextField} from "@mui/material";
+import {Avatar, InputLabel, TextField} from "@mui/material";
 
 
 const WalletConnect: FC = () => {
@@ -147,15 +147,28 @@ const WalletContent: FC = () => {
                 <div className="base-container base-user-container">
                     <div className="user-info-container">
                         <div className="user-image">
-                            <img src={userData?.image ? userData.image : '/images/wishlist-placeholder.svg'} className="avatar"></img>
+                            <Avatar
+                                alt="avator"
+                                sx={{
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    width: '193px',
+                                    height: '218px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: 'white',
+                                    textAlign: 'center',
+                                    borderRadius: '8px',
+                                }}
+                                src={userData?.image ? userData.image : '/images/wishlist-placeholder.svg'}/>
                         </div>
 
 
-
                         <div className="user-info">
-                            <div style={{ display: "flex", alignItems: "center" }}>
+                            <div style={{display: "flex", alignItems: "center"}}>
                                 <div className="user-info-base-info">
-                                    <h3 style={{ marginRight: "5px" }}>
+                                    <h3 style={{marginRight: "5px"}}>
                                         {userData?.name && userData?.surname
                                             ? `${userData.name} ${userData.surname}`
                                             : "First | Last name"}
@@ -165,14 +178,15 @@ const WalletContent: FC = () => {
                                     <Link to={{
                                         pathname: "/update-profile"
                                     }}
-                                    state={{userData: userData}}>
+                                          state={{userData: userData}}>
                                         <img src="/images/update.svg"></img>
                                     </Link>
                                 </div>
                             </div>
 
                             <div className="user-info-socials">
-                                <a className="socials" href={userData?.instagram ? userData.instagram : "#"} target="_blank">
+                                <a className="socials" href={userData?.instagram ? userData.instagram : "#"}
+                                   target="_blank">
                                     <img src="/images/socials/instagram.svg" alt="instagram"></img>
                                     <p>Instagram</p>
                                 </a>
@@ -182,12 +196,14 @@ const WalletContent: FC = () => {
                                     <p>TikTok</p>
                                 </a>
 
-                                <a className="socials" href={userData?.twitter ? userData.twitter : "#"} target="_blank">
+                                <a className="socials" href={userData?.twitter ? userData.twitter : "#"}
+                                   target="_blank">
                                     <img src="/images/socials/twitter.svg" alt="twitter"></img>
                                     <p>Twitter</p>
                                 </a>
 
-                                <a className="socials" href={userData?.linkedin ? userData.linkedin : "#"} target="_blank">
+                                <a className="socials" href={userData?.linkedin ? userData.linkedin : "#"}
+                                   target="_blank">
                                     <img src="/images/socials/linkedin.svg" alt="linkedin"></img>
                                     <p>Linkedin</p>
                                 </a>
@@ -210,63 +226,63 @@ const WalletContent: FC = () => {
                     <hr className="divider-large"></hr>
 
                     <div>
-                        <img src="/images/wishlist-placeholder.svg" />
+                        <img src="/images/wishlist-placeholder.svg"/>
                     </div>
                 </div>
 
                 <div>
-                        <Button onClick={handleOpen}
-                                style={{
-                                    backgroundColor: "#47279B",
-                                    borderRadius: "32px",
-                                    fontSize: "20px",
-                                    color: "white",
-                                    width: "430px",
-                                    marginBottom: "30px",
-                                    padding: "15px"
+                    <Button onClick={handleOpen}
+                            style={{
+                                backgroundColor: "#47279B",
+                                borderRadius: "32px",
+                                fontSize: "20px",
+                                color: "white",
+                                width: "430px",
+                                marginBottom: "30px",
+                                padding: "15px"
+                            }}
+                    >Make a wish</Button>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2" color="#030214"
+                                        marginBottom={"5px"} marginLeft={"2px"}
+                            >
+                                Enter the amount
+                            </Typography>
+                            <TextField
+                                inputMode="numeric"
+                                InputProps={{
+                                    inputMode: "decimal",
+                                    style: {
+                                        borderRadius: "32px",
+                                    }
                                 }}
-                        >Make a wish</Button>
-                        <Modal
-                            open={open}
-                            onClose={handleClose}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
-                        >
-                            <Box sx={style}>
-                                <Typography id="modal-modal-title" variant="h6" component="h2" color="#030214"
-                                 marginBottom={"5px"} marginLeft={"2px"}
-                                >
-                                    Enter the amount
-                                </Typography>
-                                <TextField
-                                    inputMode="numeric"
-                                    InputProps={{
-                                        inputMode: "decimal",
-                                        style: {
-                                            borderRadius: "32px",
-                                        }
-                                    }}
+                                style={{
+                                    width: "390px",
+                                }}
+                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                    setGiftAmount(event.target.value);
+                                }}
+
+                            />
+                            <Button onClick={handleGift}
                                     style={{
+                                        backgroundColor: "#47279B",
+                                        borderRadius: "32px",
+                                        fontSize: "20px",
+                                        color: "white",
                                         width: "390px",
-                                    }}
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                        setGiftAmount(event.target.value);
-                                    }}
-                                    
-                                    />
-                                <Button onClick={handleGift}
-                                        style={{
-                                            backgroundColor: "#47279B",
-                                            borderRadius: "32px",
-                                            fontSize: "20px",
-                                            color: "white",
-                                            width: "390px",
-                                            height: "60px",
-                                            marginTop: "20px"
-                                        }}>Give</Button>
-                            </Box>
-                        </Modal>
-                    </div>
+                                        height: "60px",
+                                        marginTop: "20px"
+                                    }}>Give</Button>
+                        </Box>
+                    </Modal>
+                </div>
             </div>
         )
     } else {
