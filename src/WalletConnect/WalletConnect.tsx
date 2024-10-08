@@ -213,7 +213,16 @@ const WalletContent: FC = () => {
                     </div>
 
                     <div>
-                        <Button onClick={handleOpen}>Make a wish</Button>
+                        <Button onClick={handleOpen}
+                                style={{
+                                    backgroundColor: "#47279B",
+                                    borderRadius: "16px",
+                                    fontSize: "20px",
+                                    color: "white",
+                                    width: "390px",
+                                    marginTop: "15px"
+                                }}
+                        >Make a wish</Button>
                         <Modal
                             open={open}
                             onClose={handleClose}
