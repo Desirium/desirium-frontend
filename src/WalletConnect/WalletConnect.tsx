@@ -146,7 +146,7 @@ const WalletContent: FC = () => {
                 <div className="base-container base-user-container">
                     <div className="user-info-container">
                         <div className="user-image">
-                            <img src="/images/placeholder-person.svg"></img>
+                            <img src={userData?.image ? userData.image : '/images/wishlist-placeholder.svg'} className="avatar"></img>
                         </div>
 
 
@@ -207,7 +207,7 @@ const WalletContent: FC = () => {
                     </div>
 
                     <hr className="divider-large"></hr>
-                    
+
                     <div>
                         <img src="/images/wishlist-placeholder.svg" />
                     </div>

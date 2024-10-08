@@ -8,5 +8,5 @@ export type userDataType = {
     twitter?: string,
     linkedin?: string,
     description?: string,
-    avatar: string,
+    image: string,
 };

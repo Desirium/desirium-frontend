@@ -1,8 +1,8 @@
-import {useEffect, useState} from 'react';
+import {ChangeEvent, useEffect, useState} from 'react';
 import './UpdateProfile.css';
 import {useLocation} from "react-router";
 import { userDataType } from "../types";
-
+import Button from "@mui/material/Button";
 
 const UpdateProfile = () => {
     const location = useLocation();
@@ -44,6 +44,7 @@ const UpdateProfile = () => {
             twitter: userData?.twitter || "",
             linkedin: userData?.linkedin || "",
             description: userData?.description || "",
+            image: userData?.image || "/images/placeholder-person.svg"
         });
         console.log(newUserData)
     }, [userData]);
@@ -51,20 +52,73 @@ const UpdateProfile = () => {
     // Handler to update state when input changes
     const handleInputChange = (e: any) => {  // TODO: Fix this type
         const {name, value} = e.target;
-        console.log(name);
-        console.log(value);
         setNewUserData(prevState => ({
             ...prevState,
             [name]: value
         }));
     };
 
+    const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        const formData = new FormData();
+        formData.append('media', file);
+        try {
+            const response = await fetch(`http://127.0.0.1:3000/users/image/${userData.id}`, {
+                method: 'PUT',
+                body: formData,
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                console.log('Uploaded file path:', result.image);
+                const name = "image";
+                setNewUserData(prevState => ({
+                    ...prevState,
+                    [name]: result.image
+                }));
+            } else {
+                console.error('Upload error:', result.error);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+
     return (
         <div className="screen-flex-position">
             <div className="base-container base-user-container">
                 <div className="user-info-container">
-                    <div className="user-image">
-                        <img src="/images/placeholder-person.svg"></img>
+                    <div>
+                        <input
+                            accept="image/*"
+                            style={{ display: 'none' }}
+                            id="upload-button"
+                            type="file"
+                            onChange={handleFileChange}
+                        />
+                        <label htmlFor="upload-button">
+                            <Button
+                                variant="contained"
+                                component="span"
+                                sx={{
+                                    backgroundImage: `url('${newUserData.image}')`,
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    width: '193px',
+                                    height: '218px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: 'white',
+                                    textAlign: 'center',
+                                    borderRadius: '8px',
+                                }}
+                            >
+                                Upload Photo
+                            </Button>
+                        </label>
                     </div>
 
 
