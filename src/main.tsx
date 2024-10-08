@@ -7,9 +7,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 createRoot(document.getElementById('root')!).render(
     <Router>
         <Routes>
-            {/* Define your routes */}
-            <Route path="/" element={<WalletConnect />} />  {/* Home route */}
-            <Route path="/update-profile" element={<UpdateProfile />} />  {/* Update page */}
+            <Route path="/" element={<WalletConnect />} />
+            <Route path="/update-profile" element={<UpdateProfile />} />
         </Routes>
     </Router>
 );
