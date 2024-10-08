@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import {TextField} from "@mui/material";
+import {InputLabel, TextField} from "@mui/material";
 
 
 const WalletConnect: FC = () => {
@@ -137,6 +137,7 @@ const WalletContent: FC = () => {
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
+        borderRadius: "32px",
     };
 
     if (connected) {
@@ -211,16 +212,18 @@ const WalletContent: FC = () => {
                     <div>
                         <img src="/images/wishlist-placeholder.svg" />
                     </div>
+                </div>
 
-                    <div>
+                <div>
                         <Button onClick={handleOpen}
                                 style={{
                                     backgroundColor: "#47279B",
-                                    borderRadius: "16px",
+                                    borderRadius: "32px",
                                     fontSize: "20px",
                                     color: "white",
-                                    width: "390px",
-                                    marginTop: "15px"
+                                    width: "430px",
+                                    marginBottom: "30px",
+                                    padding: "15px"
                                 }}
                         >Make a wish</Button>
                         <Modal
@@ -230,14 +233,17 @@ const WalletContent: FC = () => {
                             aria-describedby="modal-modal-description"
                         >
                             <Box sx={style}>
-                                <Typography id="modal-modal-title" variant="h6" component="h2">
+                                <Typography id="modal-modal-title" variant="h6" component="h2" color="#030214"
+                                 marginBottom={"5px"} marginLeft={"2px"}
+                                >
                                     Enter the amount
                                 </Typography>
                                 <TextField
                                     inputMode="numeric"
                                     InputProps={{
+                                        inputMode: "decimal",
                                         style: {
-                                            borderRadius: "16px",
+                                            borderRadius: "32px",
                                         }
                                     }}
                                     style={{
@@ -245,20 +251,22 @@ const WalletContent: FC = () => {
                                     }}
                                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                         setGiftAmount(event.target.value);
-                                    }}/>
+                                    }}
+                                    
+                                    />
                                 <Button onClick={handleGift}
                                         style={{
                                             backgroundColor: "#47279B",
-                                            borderRadius: "16px",
+                                            borderRadius: "32px",
                                             fontSize: "20px",
                                             color: "white",
                                             width: "390px",
-                                            marginTop: "15px"
+                                            height: "60px",
+                                            marginTop: "20px"
                                         }}>Give</Button>
                             </Box>
                         </Modal>
                     </div>
-                </div>
             </div>
         )
     } else {
