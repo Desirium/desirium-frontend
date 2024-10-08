@@ -231,15 +231,30 @@ const WalletContent: FC = () => {
                         >
                             <Box sx={style}>
                                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                                    Enter the amount:
+                                    Enter the amount
                                 </Typography>
                                 <TextField
                                     inputMode="numeric"
-                                    label="amount"
+                                    InputProps={{
+                                        style: {
+                                            borderRadius: "16px",
+                                        }
+                                    }}
+                                    style={{
+                                        width: "390px",
+                                    }}
                                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                         setGiftAmount(event.target.value);
                                     }}/>
-                                <Button onClick={handleGift}>Give</Button>
+                                <Button onClick={handleGift}
+                                        style={{
+                                            backgroundColor: "#47279B",
+                                            borderRadius: "16px",
+                                            fontSize: "20px",
+                                            color: "white",
+                                            width: "390px",
+                                            marginTop: "15px"
+                                        }}>Give</Button>
                             </Box>
                         </Modal>
                     </div>
