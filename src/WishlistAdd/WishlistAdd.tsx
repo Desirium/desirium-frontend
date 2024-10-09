@@ -1,23 +1,22 @@
 import {ChangeEvent, useEffect, useState} from 'react';
-import './UpdateProfile.css';
 import {useLocation} from "react-router";
-import { userDataType } from "../types";
+import { userDataType, wishListDataType } from "../types";
 import Button from "@mui/material/Button";
 
 const UpdateProfile = () => {
     const location = useLocation();
     const [userData, setUserData] = useState<userDataType | Record<string, any>>(location.state?.userData || {});
+    const [whishlist, setWhishlist] = useState<Array<wishListDataType | Record<string, any>>>([]);
 
-    const [newUserData, setNewUserData] = useState<userDataType | Record<string, any>>({});
 
-    const handleSave = async () => {
+    const handleAddWish = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:3000/users/${userData.id}`, {
-                method: 'PUT',
+            const response = await fetch(`http://127.0.0.1:3000/wishlist`, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(newUserData)
+                body: JSON.stringify({user_id: 4})
             });
 
             if (response.ok) {
@@ -33,30 +32,23 @@ const UpdateProfile = () => {
             console.error('Error:', error);
             alert('An error occurred while updating the profile.');
         }
-    };
-
-    const handleAddWish = async () => {
-        window.location.href = '/add-wishlist'
     }
 
     useEffect(() => {
-        setNewUserData({
-            name: userData?.name || "",
-            surname: userData?.surname || "",
-            instagram: userData?.instagram || "",
-            tiktok: userData?.tiktok || "",
-            twitter: userData?.twitter || "",
-            linkedin: userData?.linkedin || "",
-            description: userData?.description || "",
-            image: userData?.image || "/images/placeholder-person.svg"
+        setWhishlist({
+            name: "",
+            sum: "",
+            description: "",
+            user_id: userData?.id ? userData.id : 4,
+            image: "/images/homephoto.png"
         });
-        console.log(newUserData)
+        console.log(whishlist)
     }, [userData]);
 
     // Handler to update state when input changes
-    const handleInputChange = (e: any) => {  // TODO: Fix this type
+    const handleInputChange = (e: any) => {
         const {name, value} = e.target;
-        setNewUserData(prevState => ({
+        setWhishlist(prevState => ({
             ...prevState,
             [name]: value
         }));
@@ -67,7 +59,7 @@ const UpdateProfile = () => {
         const formData = new FormData();
         formData.append('media', file);
         try {
-            const response = await fetch(`http://127.0.0.1:3000/users/image/${userData.id}`, {
+            const response = await fetch(`http://127.0.0.1:3000/wishlist/image/${userData.id}`, {
                 method: 'PUT',
                 body: formData,
             });
@@ -77,7 +69,7 @@ const UpdateProfile = () => {
             if (response.ok) {
                 console.log('Uploaded file path:', result.image);
                 const name = "image";
-                setNewUserData(prevState => ({
+                setWhishlist(prevState => ({
                     ...prevState,
                     [name]: result.image
                 }));
@@ -107,7 +99,7 @@ const UpdateProfile = () => {
                                 variant="contained"
                                 component="span"
                                 sx={{
-                                    backgroundImage: `url('${newUserData.image}')`,
+                                    backgroundImage: `url('${whishlist.image}')`,
                                     backgroundSize: 'cover',
                                     backgroundPosition: 'center',
                                     width: '193px',
@@ -131,17 +123,17 @@ const UpdateProfile = () => {
                                 <input
                                     type="text"
                                     name="name"
-                                    value={newUserData.name}
+                                    value={whishlist.name}
                                     onChange={handleInputChange}
-                                    placeholder="First name"
+                                    placeholder="Wish"
                                     autoComplete="off"
                                 />
                                 <input
                                     type="text"
-                                    name="surname"
-                                    value={newUserData.surname}
+                                    name="sum"
+                                    value={whishlist.sum}
                                     onChange={handleInputChange}
-                                    placeholder="Last name"
+                                    placeholder="Sum"
                                     autoComplete="off"
                                 />
                             </div>
@@ -152,55 +144,6 @@ const UpdateProfile = () => {
                             </div>
                         </div>
 
-                        <div className="user-info-socials">
-                            <div className="socials">
-                                <img src="/images/socials/instagram.svg" alt="instagram"/>
-                                <input
-                                    type="text"
-                                    name="instagram"
-                                    value={newUserData.instagram}
-                                    onChange={handleInputChange}
-                                    placeholder="enter the link"
-                                    autoComplete="off"
-                                />
-                            </div>
-
-                            <div className="socials">
-                                <img src="/images/socials/tiktok.svg" alt="tiktok"/>
-                                <input
-                                    type="text"
-                                    name="tiktok"
-                                    value={newUserData.tiktok}
-                                    onChange={handleInputChange}
-                                    placeholder="enter the link"
-                                    autoComplete="off"
-                                />
-                            </div>
-
-                            <div className="socials">
-                                <img src="/images/socials/twitter.svg" alt="twitter"/>
-                                <input
-                                    type="text"
-                                    name="twitter"
-                                    value={newUserData.twitter}
-                                    onChange={handleInputChange}
-                                    placeholder="enter the link"
-                                    autoComplete="off"
-                                />
-                            </div>
-
-                            <div className="socials">
-                                <img src="/images/socials/linkedin.svg" alt="linkedin"/>
-                                <input
-                                    type="text"
-                                    name="linkedin"
-                                    value={newUserData.linkedin}
-                                    onChange={handleInputChange}
-                                    placeholder="enter the link"
-                                    autoComplete="off"
-                                />
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -208,18 +151,14 @@ const UpdateProfile = () => {
             <div className="base-container description-container">
                 <textarea
                     name="description"
-                    value={newUserData.description}
+                    value={whishlist.description}
                     onChange={handleInputChange}
-                    placeholder="Tell us about yourself, your dreams and hobbies..."
-                    autoComplete="off"       
+                    placeholder="Tell us in detail about your wish..."
+                    autoComplete="off"
                 />
             </div>
 
-            <button onClick={handleAddWish} className="wishlistButton">
-                ADD WISH
-            </button>
-
-            <button onClick={handleSave} className="saveButton">
+            <button onClick={handleAddWish} className="saveButton">
                 SAVE
             </button>
         </div>

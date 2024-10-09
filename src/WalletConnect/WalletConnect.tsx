@@ -7,12 +7,12 @@ import {clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, T
 import '@solana/wallet-adapter-react-ui/styles.css';
 import './WalletConnect.css';
 import {Link} from "react-router-dom";
-import {userDataType} from "../types";
+import {userDataType, wishListDataType} from "../types";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import {Avatar, InputLabel, TextField} from "@mui/material";
+import {Avatar, TextField} from "@mui/material";
 
 
 const WalletConnect: FC = () => {
@@ -34,7 +34,7 @@ const WalletConnect: FC = () => {
 const WalletContent: FC = () => {
     const {publicKey, connected, sendTransaction} = useWallet();
     const [userData, setUserData] = useState<userDataType>();
-    const [wishList, setWishList] = useState();
+    const [wishList, setWishList] = useState([]);
     const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
 
     const fetchAllWishesForUserByUserId = useCallback(async (id: number) => {
@@ -50,6 +50,8 @@ const WalletContent: FC = () => {
                 console.log('Successfully fetched wishlists from backend');
                 const responseBody = await response.json();
                 setWishList(responseBody);
+                console.log(responseBody)
+                console.log(wishList)
                 return responseBody;
             } else {
                 console.error('Failed to send data to the backend');
@@ -123,6 +125,7 @@ const WalletContent: FC = () => {
         const signature = await sendTransaction(transaction, connection);
 
         await connection.confirmTransaction(signature, 'confirmed');
+        handleClose();
 
         console.log(wishListWallet)
     }
@@ -225,9 +228,40 @@ const WalletContent: FC = () => {
 
                     <hr className="divider-large"></hr>
 
-                    <div>
-                        <img src="/images/wishlist-placeholder.svg"/>
-                    </div>
+
+                    {
+                        wishList ? wishList.map(element => (
+                            <div className="user-info-container">
+                                <div className="user-image">
+                                    <Avatar
+                                        alt="avator"
+                                        sx={{
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center',
+                                            width: '193px',
+                                            height: '218px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            color: 'white',
+                                            textAlign: 'center',
+                                            borderRadius: '8px',
+                                        }}
+                                        src={element?.image ? element.image : '/images/wishlist-placeholder.svg'}/>
+                                </div>
+                                <div className="user-info">
+                                    <div style={{display: "flex", alignItems: "center"}}>
+                                        <div className="user-info-base-info">
+                                            <h3 style={{marginRight: "5px"}}>
+                                                {element.name}
+                                            </h3>
+                                            <p style={{marginRight: "5px"}}>{element.description}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )) : <p></p>
+                    }
                 </div>
 
                 <div>
